@@ -400,7 +400,7 @@ function MS2Buffs(frame,aura)
 		end
 		if show then
 			texture:SetTexture(texpath);
-			button:SetBackdropColor(0,1,0);
+			button:SetsetBackdropColor(0,1,0);
 			if (app > 1) then appframe:SetText(app); 
 			else appframe:SetText(""); end
 			button:Show();
@@ -425,7 +425,7 @@ function MS2Buffs(frame,aura)
 		end
 		if show then
 			texture:SetTexture(texpath);
-			button:SetBackdropColor(1,0,0);
+			button:SetsetBackdropColor(1,0,0);
 			if (app > 1) then appframe:SetText(app); 
 			else appframe:SetText(""); end
 			button:Show();
@@ -441,7 +441,7 @@ function MS2Buffs(frame,aura)
 			button = getglobal(aura..i);
 			texture = getglobal(aura..i.."Overlay");
 			appframe = getglobal(aura..i.."App");
-			button:SetBackdropColor(0,0,1);
+			button:SetsetBackdropColor(0,0,1);
 			texture:SetTexture(GetInventoryItemTexture("player",16));
 			appframe:SetText("");
 			button:Show();
@@ -453,7 +453,7 @@ function MS2Buffs(frame,aura)
 			button = getglobal(aura..i);
 			texture = getglobal(aura..i.."Overlay");
 			appframe = getglobal(aura..i.."App");
-			button:SetBackdropColor(0,0,1);
+			button:SetsetBackdropColor(0,0,1);
 			texture:SetTexture(GetInventoryItemTexture("player",17));
 			appframe:SetText("");
 			button:Show();
@@ -783,24 +783,24 @@ function MS2ToggleBG()
 	local toggle;
 	if ms2vars.hide.background then toggle = 0;
 	else toggle = 1; end
-	MS2player:SetBackdropColor(toggle,toggle,toggle,toggle);
+	MS2player:SetsetBackdropColor(toggle,toggle,toggle,toggle);
 	MS2player:SetBackdropBorderColor(toggle,toggle,toggle,toggle);
-	MS2target:SetBackdropColor(toggle,toggle,toggle,toggle);
+	MS2target:SetsetBackdropColor(toggle,toggle,toggle,toggle);
 	MS2target:SetBackdropBorderColor(toggle,toggle,toggle,toggle);
-	MS2targettarget:SetBackdropColor(toggle,toggle,toggle,toggle);
+	MS2targettarget:SetsetBackdropColor(toggle,toggle,toggle,toggle);
 	MS2targettarget:SetBackdropBorderColor(toggle,toggle,toggle,toggle);
-	MS2focus:SetBackdropColor(toggle,toggle,toggle,toggle);
+	MS2focus:SetsetBackdropColor(toggle,toggle,toggle,toggle);
 	MS2focus:SetBackdropBorderColor(toggle,toggle,toggle,toggle);
-	MS2focustarget:SetBackdropColor(toggle,toggle,toggle,toggle);
+	MS2focustarget:SetsetBackdropColor(toggle,toggle,toggle,toggle);
 	MS2focustarget:SetBackdropBorderColor(toggle,toggle,toggle,toggle);
-	MS2pet:SetBackdropColor(toggle,toggle,toggle,toggle);
+	MS2pet:SetsetBackdropColor(toggle,toggle,toggle,toggle);
 	MS2pet:SetBackdropBorderColor(toggle,toggle,toggle,toggle);
 	for i=1, 4 do
-		getglobal("MS2party"..i):SetBackdropColor(toggle,toggle,toggle,toggle);
+		getglobal("MS2party"..i):SetsetBackdropColor(toggle,toggle,toggle,toggle);
 		getglobal("MS2party"..i):SetBackdropBorderColor(toggle,toggle,toggle,toggle);
 	end
 	for i=1, 4 do
-		getglobal("MS2partypet"..i):SetBackdropColor(toggle,toggle,toggle,toggle);
+		getglobal("MS2partypet"..i):SetsetBackdropColor(toggle,toggle,toggle,toggle);
 		getglobal("MS2partypet"..i):SetBackdropBorderColor(toggle,toggle,toggle,toggle);
 	end
 end

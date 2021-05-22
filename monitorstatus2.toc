@@ -1,0 +1,10 @@
+## Interface: 60200
+## Title: Monitor Status v2
+## Author: Melatwig, Cataclysm/MoP updates by Wanfohk (Twintop/Mannoroth-US)
+## Version: 2.5.0
+## Notes: Text-based party frame
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## SavedVariables: ms2vars
+monitorstatus2.xml
+ms2options.xml

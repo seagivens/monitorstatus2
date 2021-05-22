@@ -1,0 +1,654 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
+
+	<Script file="ms2options.lua" />
+
+	<CheckButton name="MS2CheckTemplate" hidden="false" virtual="true">
+		<Size>
+			<AbsDimension x="32" y="32" />
+		</Size>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentText" inherits="GameFontNormalSmall" text="">
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="0" y="0" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<NormalTexture file="Interface\Buttons\UI-CheckBox-Up" />
+		<PushedTexture file="Interface\Buttons\UI-CheckBox-Down" />
+		<HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD" />
+		<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check" />
+		<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled" />
+		<Scripts>
+			<OnShow function="MS2C_Get" />
+			<OnClick function="MS2C_Set" />
+			<OnEnter function="MS2C_TT" />
+			<OnLeave>GameTooltip:Hide();</OnLeave>
+		</Scripts>
+	</CheckButton>
+
+	<EditBox name="MS2EditBoxTemplate" letters="150" historyLines="0" autoFocus="false" virtual="true">
+		<Size>
+			<AbsDimension x="84" y="20"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<FontString name="$parentLabel" inherits="GameFontNormal" justifyH="RIGHT">
+					<Anchors>
+						<Anchor point="RIGHT" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="-10" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<Texture name="$parentLeft" file="Interface\Common\Common-Input-Border">
+					<Size>
+						<AbsDimension x="8" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="-8" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.0625" top="0" bottom="0.625"/>
+				</Texture>
+				<Texture name="$parentMiddle" file="Interface\Common\Common-Input-Border">
+					<Size>
+						<AbsDimension x="84" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT"/>
+					</Anchors>
+					<TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625"/>
+				</Texture>
+				<Texture name="$parentRight" file="Interface\Common\Common-Input-Border">
+					<Size>
+						<AbsDimension x="8" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentMiddle" relativePoint="RIGHT"/>
+					</Anchors>
+					<TexCoords left="0.9375" right="1.0" top="0" bottom="0.625"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnShow function="MS2C_GetEditbox" />
+			<OnTextChanged function="MS2C_SetString" />
+			<OnEditFocusLost function="MS2C_HighlightText" />
+			<OnEnterPressed function="MS2C_ClearFocus" />
+			<OnEscapePressed function="MS2C_ClearFocus" />
+			<OnEnter function="MS2C_ETT" />
+			<OnLeave>GameTooltip:Hide();</OnLeave>
+		</Scripts>
+		<FontString inherits="ChatFontNormal"/>
+	</EditBox>
+
+	<Frame name="MS2Options" frameStrata="DIALOG" parent="UIParent" hidden="true" toplevel="true" movable="false" enableMouse="true">
+		<Size>
+			<AbsDimension x="460" y="640" />
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER" />
+		</Anchors>
+
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11" />	
+				<Size>
+					<AbsDimension x="128" y="17" />
+				</Size>
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32" />
+			</EdgeSize>
+		</Backdrop>
+
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="MS2FrameTitle" file="Interface\DialogFrame\UI-DialogBox-Header">
+					<Size>
+						<AbsDimension x="300" y="64" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="12" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<FontString name="MS2FrameTitleText" inherits="GameFontNormal" text="Monitorstatus v2">
+					<Anchors>
+						<Anchor point="TOP" relativeTo="MS2Options">
+							<Offset>
+								<AbsDimension x="0" y="-2" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+
+		<Frames>
+		<Frame name="MS2CBorder1" frameStrata="HIGH" enableMouse="false" movable="false" parent="MS2Options">
+			<Size>
+				<AbsDimension x="430" y="74" />
+			</Size>
+			<Anchors>
+				<Anchor point="TOP" relativeTo="MS2Options" relativePoint="TOP">
+					<Offset>
+						<AbsDimension x="0" y="-30" />
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Backdrop name="$parentBackdrop" bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="16" />
+				</EdgeSize>
+				<TileSize>
+					<AbsValue val="16" />
+				</TileSize>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="3" bottom="3" />
+				</BackgroundInsets>
+			</Backdrop>
+		</Frame>
+
+		<CheckButton name="MS2Ctoggle" inherits="MS2CheckTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="MS2CBorder1" relativePoint="TOPLEFT">
+					<Offset>
+						<AbsDimension x="10" y="-5" />
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</CheckButton>
+
+		<CheckButton name="MS2Cmove" inherits="MS2CheckTemplate">
+			<Anchors>
+				<Anchor point="TOP" relativeTo="MS2Ctoggle" relativePoint="BOTTOM" />
+			</Anchors>
+		</CheckButton>
+
+		<CheckButton name="MS2Cenablemouse" inherits="MS2CheckTemplate">
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="MS2Ctoggle" relativePoint="RIGHT">
+					<Offset>
+						<AbsDimension x="225" y="0" />
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</CheckButton>
+
+		<CheckButton name="MS2Cincombat" inherits="MS2CheckTemplate">
+			<Anchors>
+				<Anchor point="TOP" relativeTo="MS2Cenablemouse" relativePoint="BOTTOM" />
+			</Anchors>
+		</CheckButton>
+
+		<Slider name="MS2Cscale" inherits="OptionsSliderTemplate">
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="MS2Ctoggle" relativePoint="RIGHT">
+					<Offset>
+						<AbsDimension x="70" y="-16" />
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow function="MS2C_GetSlider" />
+				<OnValueChanged function="MS2C_SetSlider" />
+				<OnEnter function="MS2C_STT" />
+				<OnLeave>GameTooltip:Hide();</OnLeave>
+			</Scripts>
+		</Slider>
+
+		<Frame name="MS2CBorder2" frameStrata="HIGH" enableMouse="false" movable="false" parent="MS2Options">
+			<Size>
+				<AbsDimension x="430" y="106" />
+			</Size>
+			<Anchors>
+				<Anchor point="TOP" relativeTo="MS2CBorder1" relativePoint="BOTTOM" />
+			</Anchors>
+			<Backdrop name="$parentBackdrop" bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="16" />
+				</EdgeSize>
+				<TileSize>
+					<AbsValue val="16" />
+				</TileSize>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="3" bottom="3" />
+				</BackgroundInsets>
+			</Backdrop>
+		</Frame>
+
+		<CheckButton name="MS2Cshowplayer" inherits="MS2CheckTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="MS2CBorder2" relativePoint="TOPLEFT">
+					<Offset>
+						<AbsDimension x="10" y="-5" />
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</CheckButton>
+
+		<CheckButton name="MS2Cshowpet" inherits="MS2CheckTemplate">
+			<Anchors>
+				<Anchor point="TOP" relativeTo="MS2Cshowplayer" relativePoint="BOTTOM" />
+			</Anchors>
+		</CheckButton>
+
+		<CheckButton name="MS2Cshowtarget" inherits="MS2CheckTemplate">
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="MS2Cshowplayer" relativePoint="RIGHT">
+					<Offset>
+						<AbsDimension x="100" y="0" />
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</CheckButton>
+
+		<CheckButton name="MS2Cshowtargettarget" inherits="MS2CheckTemplate">
+			<Anchors>
+				<Anchor point="TOP" relativeTo="MS2Cshowtarget" relativePoint="BOTTOM" />
+			</Anchors>
+		</CheckButton>
+
+		<CheckButton name="MS2Cshowparty" inherits="MS2CheckTemplate">
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="MS2Cshowtarget" relativePoint="RIGHT">
+					<Offset>
+						<AbsDimension x="120" y="0" />
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</CheckButton>
+
+		<CheckButton name="MS2Cshowppets" inherits="MS2CheckTemplate">
+			<Anchors>
+				<Anchor point="TOP" relativeTo="MS2Cshowparty" relativePoint="BOTTOM" />
+			</Anchors>
+		</CheckButton>
+
+		<CheckButton name="MS2Cshowfocus" inherits="MS2CheckTemplate">
+			<Anchors>
+				<Anchor point="TOP" relativeTo="MS2Cshowpet" relativePoint="BOTTOM" />
+			</Anchors>
+		</CheckButton>
+
+		<CheckButton name="MS2Cshowfocustarget" inherits="MS2CheckTemplate">
+			<Anchors>
+				<Anchor point="TOP" relativeTo="MS2Cshowtargettarget" relativePoint="BOTTOM" />
+			</Anchors>
+		</CheckButton>		
+
+		<CheckButton name="MS2Cshowbackground" inherits="MS2CheckTemplate">
+			<Anchors>
+				<Anchor point="TOP" relativeTo="MS2Cshowppets" relativePoint="BOTTOM" />
+			</Anchors>
+		</CheckButton>		
+
+		<Frame name="MS2CBorder3" frameStrata="HIGH" enableMouse="false" movable="false" parent="MS2Options">
+			<Size>
+				<AbsDimension x="430" y="275" />
+			</Size>
+			<Anchors>
+				<Anchor point="TOP" relativeTo="MS2CBorder2" relativePoint="BOTTOM" />
+			</Anchors>
+			<Backdrop name="$parentBackdrop" bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="16" />
+				</EdgeSize>
+				<TileSize>
+					<AbsValue val="16" />
+				</TileSize>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="3" bottom="3" />
+				</BackgroundInsets>
+			</Backdrop>
+		</Frame>
+
+		<EditBox name="MS2Ceditplayer" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="TOPLEFT" relativeTo="MS2CBorder3" relativePoint="TOPLEFT">
+				<Offset><AbsDimension x="70" y="-30"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Chealthplayer" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Ceditplayer" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Cmanaplayer" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Chealthplayer" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<Frame name="MS2CTextFrame1" frameStrata="HIGH">
+			<Size>
+				<AbsDimension x="32" y="32"/>
+			</Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="MS2CBorder3" relativepoint="TOPLEFT" />
+			</Anchors>
+			<Layers>
+				<Layer level="OVERLAY">
+					<FontString name="MS2CText1" inherits="GameFontNormal" text="1st frame">
+						<Size>
+							<AbsDimension x="100" y="12"/>
+						</Size>
+						<Anchors>
+							<Anchor point="BOTTOM" relativeTo="MS2Ceditplayer" relativepoint="TOP">
+								<Offset>
+									<AbsDimension x="0" y="10"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</FontString>
+					<FontString name="MS2CText2" inherits="GameFontNormal" text="2nd frame">
+						<Size>
+							<AbsDimension x="100" y="12"/>
+						</Size>
+						<Anchors>
+							<Anchor point="BOTTOM" relativeTo="MS2Chealthplayer" relativepoint="TOP">
+								<Offset>
+									<AbsDimension x="0" y="10"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</FontString>
+					<FontString name="MS2CText3" inherits="GameFontNormal" text="3rd frame">
+						<Size>
+							<AbsDimension x="100" y="12"/>
+						</Size>
+						<Anchors>
+							<Anchor point="BOTTOM" relativeTo="MS2Cmanaplayer" relativepoint="TOP">
+								<Offset>
+									<AbsDimension x="0" y="10"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</FontString>
+				</Layer>
+			</Layers>
+		</Frame>
+
+		<EditBox name="MS2Ceditpet" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="TOPLEFT" relativeTo="MS2Ceditplayer" relativePoint="TOPLEFT">
+				<Offset><AbsDimension x="0" y="-25"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Chealthpet" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Ceditpet" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Cmanapet" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Chealthpet" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Cedittarget" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="TOPLEFT" relativeTo="MS2Ceditpet" relativePoint="TOPLEFT">
+				<Offset><AbsDimension x="0" y="-25"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Chealthtarget" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Cedittarget" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Cmanatarget" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Chealthtarget" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Cedittargettarget" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="TOPLEFT" relativeTo="MS2Cedittarget" relativePoint="TOPLEFT">
+				<Offset><AbsDimension x="0" y="-25"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Chealthtargettarget" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Cedittargettarget" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Cmanatargettarget" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Chealthtargettarget" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Ceditfocus" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="TOPLEFT" relativeTo="MS2Cedittargettarget" relativePoint="TOPLEFT">
+				<Offset><AbsDimension x="0" y="-25"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Chealthfocus" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Ceditfocus" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Cmanafocus" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Chealthfocus" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Ceditfocustarget" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="TOPLEFT" relativeTo="MS2Ceditfocus" relativePoint="TOPLEFT">
+				<Offset><AbsDimension x="0" y="-25"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Chealthfocustarget" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Ceditfocustarget" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Cmanafocustarget" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Chealthfocustarget" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Ceditparty" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="TOPLEFT" relativeTo="MS2Ceditfocustarget" relativePoint="TOPLEFT">
+				<Offset><AbsDimension x="0" y="-25"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Chealthparty" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Ceditparty" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Cmanaparty" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Chealthparty" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Ceditppets" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="TOPLEFT" relativeTo="MS2Ceditparty" relativePoint="TOPLEFT">
+				<Offset><AbsDimension x="0" y="-25"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Chealthppets" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Ceditppets" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Cmanappets" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Chealthppets" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<Frame name="MS2CTextFrame2" frameStrata="HIGH">
+			<Size>
+				<AbsDimension x="32" y="32"/>
+			</Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="MS2CBorder3" relativepoint="TOPLEFT" />
+			</Anchors>
+			<Layers>
+				<Layer level="OVERLAY">
+					<FontString name="MS2CText4" inherits="GameFontNormal" text="Variables: $bind $level $name $hpp $mpp $hp $mp $mhp $mmp $hpm $mpm" justifyH="LEFT" justifyV="TOP">
+						<Size>
+							<AbsDimension x="400" y="30"/>
+						</Size>
+						<Anchors>
+							<Anchor point="BOTTOMLEFT" relativeTo="MS2CBorder3" relativepoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="10" y="6"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</FontString>
+				</Layer>
+			</Layers>
+		</Frame>
+
+		<Frame name="MS2CBorder4" frameStrata="HIGH" enableMouse="false" movable="false" parent="MS2Options">
+			<Size>
+				<AbsDimension x="430" y="120" />
+			</Size>
+			<Anchors>
+				<Anchor point="TOP" relativeTo="MS2CBorder3" relativePoint="BOTTOM" />
+			</Anchors>
+			<Backdrop name="$parentBackdrop" bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="16" />
+				</EdgeSize>
+				<TileSize>
+					<AbsValue val="16" />
+				</TileSize>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="3" bottom="3" />
+				</BackgroundInsets>
+			</Backdrop>
+		</Frame>
+
+		<EditBox name="MS2Cframe1" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="TOPLEFT" relativeTo="MS2CBorder4" relativePoint="TOPLEFT">
+				<Offset><AbsDimension x="120" y="-15"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Cframe2" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Cframe1" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Cframe3" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="LEFT" relativeTo="MS2Cframe2" relativePoint="RIGHT">
+				<Offset><AbsDimension x="20" y="0"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<EditBox name="MS2Cstrlimit" inherits="MS2EditBoxTemplate">
+			<Anchors><Anchor point="TOPLEFT" relativeTo="MS2Cframe1" relativePoint="TOPLEFT">
+				<Offset><AbsDimension x="0" y="-25"/></Offset>
+			</Anchor></Anchors>
+		</EditBox>
+
+		<Slider name="MS2Cbuffs" inherits="OptionsSliderTemplate">
+			<Anchors>
+				<Anchor point="BOTTOMLEFT" relativeTo="MS2CBorder4" relativePoint="BOTTOMLEFT">
+					<Offset>
+						<AbsDimension x="10" y="15" />
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow function="MS2C_GetSlider" />
+				<OnValueChanged function="MS2C_SetSlider" />
+				<OnEnter function="MS2C_STT" />
+				<OnLeave>GameTooltip:Hide();</OnLeave>
+			</Scripts>
+		</Slider>
+
+		<Slider name="MS2Cdebuffs" inherits="OptionsSliderTemplate">
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="MS2Cbuffs" relativePoint="RIGHT">
+					<Offset>
+						<AbsDimension x="0" y="0" />
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnShow function="MS2C_GetSlider" />
+				<OnValueChanged function="MS2C_SetSlider" />
+				<OnEnter function="MS2C_STT" />
+				<OnLeave>GameTooltip:Hide();</OnLeave>
+			</Scripts>
+		</Slider>
+
+		<CheckButton name="MS2Cmybuffs" inherits="MS2CheckTemplate">
+			<Anchors>
+				<Anchor point="LEFT" relativeTo="MS2Cframe3" relativePoint="RIGHT">
+					<Offset>
+						<AbsDimension x="10" y="0" />
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</CheckButton>
+
+		<CheckButton name="MS2Cmydebuffs" inherits="MS2CheckTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="MS2Cmybuffs" relativePoint="BOTTOMLEFT" />
+			</Anchors>
+		</CheckButton>
+
+		<CheckButton name="MS2Cshowwpnbuffs" inherits="MS2CheckTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="MS2Cmydebuffs" relativePoint="BOTTOMLEFT" />
+			</Anchors>
+		</CheckButton>
+
+		<Button name="MS2CloseOptions" inherits="GameMenuButtonTemplate" text="Close">
+			<Anchors>
+				<Anchor point="BOTTOM" relativeTo="MS2Options" relativePoint="BOTTOM">
+					<Offset>
+						<AbsDimension x="0" y="20" />
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>MS2Options:Hide();</OnClick>
+			</Scripts>
+		</Button>
+		</Frames>
+
+	</Frame>
+</Ui>

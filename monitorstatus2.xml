@@ -1,0 +1,146 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
+	
+	<Script file="monitorstatus2.lua" />
+	
+	<GameTooltip name="MS2BuffTip" frameStrata="LOW" toplevel="true" movable="true" parent="UIParent" inherits="GameTooltipTemplate" />
+
+	<Button name="MS2DragButtonTemplate" virtual="true" movable="true" frameStrata="HIGH" toplevel="true">
+		<Scripts>
+			<OnMouseDown function="MS2_StartMoving" />
+			<OnMouseUp function="MS2_StopMovingOrSizing" />
+		</Scripts>
+		<Size>
+			<AbsDimension x="15" y="15" />
+		</Size>
+		<NormalTexture name="$parentTex" file="Interface\AddOns\monitorstatus2\DragButton" />
+	</Button>
+
+	<Button name="MS2AuraTemplate" virtual="true" hidden="true">
+		<Size>
+			<AbsDimension x="18" y="18" />
+		</Size>
+		<Backdrop name="$parentBackdrop" bgFile="Interface\Tooltips\UI-Tooltip-Background" />
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentOverlay">
+					<Size>
+						<AbsDimension x="14" y="14" />
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="0" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.1" right="0.9" top="0.1" bottom="0.9" />
+				</Texture>
+				<FontString name="$parentApp" inherits="GameFontNormalLarge" nonspacewrap="true" text="" justifyH="RIGHT">
+					<Anchors><Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" /></Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnEnter function="MS2_GetBuffInfo" />
+			<OnLeave>GameTooltip:Hide();</OnLeave>
+		</Scripts>
+	</Button>
+
+	<Button name="MS2MemberTemplate" virtual="true" movable="true">
+		<Size>
+			<AbsDimension x="440" y="23" />
+		</Size>
+		<Backdrop name="$parentBackdrop" bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<EdgeSize>
+				<AbsValue val="16" />
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="16" />
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="5" right="5" top="3" bottom="3" />
+			</BackgroundInsets>
+		</Backdrop>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentText1" inherits="GameFontNormalLarge" nonspacewrap="true" text="" justifyH="LEFT">
+					<Anchors><Anchor point="LEFT"><Offset><AbsDimension x="4" y="1" /></Offset></Anchor></Anchors>
+				</FontString>
+				<FontString name="$parentText2" inherits="GameFontNormalLarge" nonspacewrap="true" text="" justifyH="LEFT">
+					<Anchors><Anchor point="LEFT" relativeTo="$parentText1" relativePoint="RIGHT"><Offset><AbsDimension x="0" y="0" /></Offset></Anchor></Anchors>
+				</FontString>
+				<FontString name="$parentText3" inherits="GameFontNormalLarge" nonspacewrap="true" text="" justifyH="LEFT">
+					<Anchors><Anchor point="LEFT" relativeTo="$parentText2" relativePoint="RIGHT"><Offset><AbsDimension x="0" y="0" /></Offset></Anchor></Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parentAura1" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentText3" relativePoint="RIGHT"><Offset><AbsDimension x="0" y="-1" /></Offset></Anchor></Anchors></Button>
+			<Button name="$parentAura2" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura1" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura3" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura2" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura4" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura3" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura5" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura4" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura6" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura5" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura7" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura6" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura8" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura7" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura9" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura8" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura10" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura9" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura11" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura10" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura12" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura11" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura13" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura12" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura14" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura13" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura15" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura14" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura16" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura15" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura17" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura16" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura18" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura17" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura19" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura18" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura20" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura19" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura21" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura20" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura22" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura21" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura23" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura22" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura24" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura23" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura25" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura24" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura26" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura25" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura27" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura26" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura28" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura27" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura29" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura28" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura30" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura29" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura31" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura30" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura32" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura31" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura33" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura32" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="$parentAura34" inherits="MS2AuraTemplate"><Anchors><Anchor point="LEFT" relativeTo="$parentAura33" relativePoint="RIGHT" /></Anchors></Button>
+		</Frames>
+		<Scripts>
+			<OnLoad function="MS2_GetUnitName" />
+			<OnEnter function="MS2_OnEnter" />
+			<OnLeave function="MS2_OnLeave" />
+			<!--<OnClick function="MS2_OnClick(arg1)" />-->
+		</Scripts>
+	</Button>
+    
+	<Frame name="MonitorStatus2" parent="UIParent">
+		<Frames>
+			<Button name="MS2DragButton" inherits="MS2DragButtonTemplate"><Anchors><Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER" /></Anchors></Button>
+			<Button name="MS2player" inherits="MS2MemberTemplate"><Anchors><Anchor point="LEFT" relativeTo="MS2DragButton" relativePoint="RIGHT" /></Anchors></Button>
+			<Button name="MS2target" inherits="MS2MemberTemplate"><Anchors><Anchor point="LEFT" relativeTo="MS2player" relativePoint="LEFT"><Offset><AbsDimension x="0" y="20" /></Offset></Anchor></Anchors></Button>
+			<Button name="MS2targettarget" inherits="MS2MemberTemplate"><Anchors><Anchor point="LEFT" relativeTo="MS2target" relativePoint="LEFT"><Offset><AbsDimension x="0" y="20" /></Offset></Anchor></Anchors></Button>
+			<Button name="MS2focus" inherits="MS2MemberTemplate"><Anchors><Anchor point="LEFT" relativeTo="MS2targettarget" relativePoint="LEFT"><Offset><AbsDimension x="0" y="20" /></Offset></Anchor></Anchors></Button>
+			<Button name="MS2focustarget" inherits="MS2MemberTemplate"><Anchors><Anchor point="LEFT" relativeTo="MS2focus" relativePoint="LEFT"><Offset><AbsDimension x="0" y="20" /></Offset></Anchor></Anchors></Button>
+			<Button name="MS2party1" inherits="MS2MemberTemplate"><Anchors><Anchor point="LEFT" relativeTo="MS2player" relativePoint="LEFT"><Offset><AbsDimension x="0" y="-20" /></Offset></Anchor></Anchors></Button>
+			<Button name="MS2party2" inherits="MS2MemberTemplate"><Anchors><Anchor point="LEFT" relativeTo="MS2party1" relativePoint="LEFT"><Offset><AbsDimension x="0" y="-20" /></Offset></Anchor></Anchors></Button>
+			<Button name="MS2party3" inherits="MS2MemberTemplate"><Anchors><Anchor point="LEFT" relativeTo="MS2party2" relativePoint="LEFT"><Offset><AbsDimension x="0" y="-20" /></Offset></Anchor></Anchors></Button>
+			<Button name="MS2party4" inherits="MS2MemberTemplate"><Anchors><Anchor point="LEFT" relativeTo="MS2party3" relativePoint="LEFT"><Offset><AbsDimension x="0" y="-20" /></Offset></Anchor></Anchors></Button>
+			<Button name="MS2pet" inherits="MS2MemberTemplate"><Anchors><Anchor point="LEFT" relativeTo="MS2player" relativePoint="LEFT"><Offset><AbsDimension x="0" y="-20" /></Offset></Anchor></Anchors></Button>
+			<Button name="MS2partypet1" inherits="MS2MemberTemplate"><Anchors><Anchor point="LEFT" relativeTo="MS2party1" relativePoint="LEFT"><Offset><AbsDimension x="20" y="-16" /></Offset></Anchor></Anchors></Button>
+			<Button name="MS2partypet2" inherits="MS2MemberTemplate"><Anchors><Anchor point="LEFT" relativeTo="MS2party2" relativePoint="LEFT"><Offset><AbsDimension x="20" y="-16" /></Offset></Anchor></Anchors></Button>
+			<Button name="MS2partypet3" inherits="MS2MemberTemplate"><Anchors><Anchor point="LEFT" relativeTo="MS2party3" relativePoint="LEFT"><Offset><AbsDimension x="20" y="-16" /></Offset></Anchor></Anchors></Button>
+			<Button name="MS2partypet4" inherits="MS2MemberTemplate"><Anchors><Anchor point="LEFT" relativeTo="MS2party4" relativePoint="LEFT"><Offset><AbsDimension x="20" y="-16" /></Offset></Anchor></Anchors></Button>
+		</Frames>
+		<Scripts>
+			<OnLoad function="MS2_OnLoad" />
+			<OnEvent function="MS2_OnEvent" />
+            <OnUpdate function="MS2_OnUpdate" />
+		</Scripts>
+	</Frame>
+    
+</Ui>

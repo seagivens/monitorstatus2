@@ -92,7 +92,13 @@
 		<FontString inherits="ChatFontNormal"/>
 	</EditBox>
 
-	<Frame name="MS2Options" frameStrata="DIALOG" parent="UIParent" hidden="true" toplevel="true" movable="false" enableMouse="true">
+	<Frame name="MS2Options" frameStrata="DIALOG" parent="UIParent" hidden="true" toplevel="true" movable="false" enableMouse="true" inherits="BackdropTemplate">
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_12_12_4444" type="global"/>
+			<KeyValue key="backdropColor" value="ColorMixin:SetRGB(0.50,0.50,0.50)" type="global"/>
+			<KeyValue key="backdropBorderColor" value="LEGENDARY_ORANGE_COLOR" type="global"/>
+			<KeyValue key="backdropBorderColorAlpha" value="0.25" type="number"/>
+		</KeyValues>
 		<Size>
 			<AbsDimension x="460" y="640" />
 		</Size>
@@ -102,7 +108,7 @@
 
 		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
 			<BackgroundInsets>
-				<AbsInset left="11" right="12" top="12" bottom="11" />	
+				<AbsInset left="11" right="12" top="12" bottom="11" />
 				<Size>
 					<AbsDimension x="128" y="17" />
 				</Size>
@@ -292,13 +298,13 @@
 			<Anchors>
 				<Anchor point="TOP" relativeTo="MS2Cshowtargettarget" relativePoint="BOTTOM" />
 			</Anchors>
-		</CheckButton>		
+		</CheckButton>
 
 		<CheckButton name="MS2Cshowbackground" inherits="MS2CheckTemplate">
 			<Anchors>
 				<Anchor point="TOP" relativeTo="MS2Cshowppets" relativePoint="BOTTOM" />
 			</Anchors>
-		</CheckButton>		
+		</CheckButton>
 
 		<Frame name="MS2CBorder3" frameStrata="HIGH" enableMouse="false" movable="false" parent="MS2Options">
 			<Size>

@@ -15,11 +15,11 @@
     2.4.1 - 2012/08/28
         Wanfohk:
             Minor text display bugfix
-	
+
     2.4.0 - 2012/08/28
         Wanfohk:
             Updated for 5.0.4 / Mists of Pandaria release
-	
+
     2.3.0 - 2011/09/06
     	Wanfohk:
     	    Added Focus option
@@ -29,25 +29,25 @@
     2.2.1 - 2010/12/06
         Wanfohk:
             Fixed bugs related to loading variables.
-    
+
     2.2.0
         Updated for 4.0.3a / Cataclysm by Wanfohk
-    
+
 	2.1d
 	    TOC update for 3.2
-	
+
 	2.1c
 		Fixed Runic Power not displaying properly when the DK has Runic Power Mastery
 	2.1b
 		Removed login message
 		.TOC update for 3.1
-	
+
 	2.1a
 		Added login message
-		
+
 	2.1 Changes by Melatwig
 	           Corrected Shaman class color
-		Added missing Death Knight support 
+		Added missing Death Knight support
 
 	1.6
 		Added class colors
@@ -73,11 +73,11 @@
 
 	1.2
 		Added possibility to hide buff and/or debuff frames
-	
+
 	1.1
 		Added a pet frame
 		Fixed debuff applications
-	
+
 	1.0
 		First version
 
@@ -108,16 +108,13 @@ ms2classcolors = {
 
 ms2classbuffs = {
 	["Warrior"] = "Commanding Shout Battle Shout",
-	["Rogue"] = "Swiftblade's Cunning Smoke Bomb",
-	["Mage"] = "Arcane Brilliance Dalaran Brilliance Time Warp Frost Armor Molten Armor Mage Armor Temporal Displacement",
-	["Priest"] = "Power Word: Fortitude Shadowform Mind Quickening Power Word: Shield Inner Fire Inner Will Spell Warding Renew Fear Ward Fade Echo of Light Spirit Shell Divine Aegis Chakra: Sanctuary Chakra: Chastise Chakra: Serenity Holy Word: Serenity Weakened Soul",
+	["Mage"] = "Arcane Brilliance Frost Armor Mage Armor ",
+	["Priest"] = "Power Word: Fortitude Shadowform Power Word: Shield Inner Fire Renew Fear Ward Fade Chastise Weakened Soul",
 	["Paladin"] = "Blessing of Kings Blessing of Might Illuminated Healing",
 	["Druid"] = "Mark of the Wild Moonkin Aura Leader of the Pack Innervate Living Seed Nature's Grasp Prowl Stampeding Roar Lifebloom Regrowth",
-	["Warlock"] = "Dark Intent Fel Armor Soulstone Unending Breath",
-	["Hunter"] = "Embrace of the Shale Spider Qiraji Fortitude Trueshot Aura Still Water Cackling Howl Serpent's Swiftness Energizing Spores Bellowing Roar Furious Howl Terrifying Roar Fearless Roar Roar of Courage Spirit Beast Blessing Ancient Hysteria Aspect of the Cheetah Aspect of the Hawk Aspect of the Pack Camoflage Deterrence Feign Death Insanity",
-	["Shaman"] = "Burning Wrath Unleashed Rage Elemental Oath Grace of Air Bloodlust Heroism Stormlash Totem Lightning Shield Water Shield Water Walking Earth Shield Riptide Exhaustion Sated",
-	["Death Knight"] = "Horn of Winter Unholy Aura Blood Presence Frost Presence Unholy Presence Icebound Fortitude Path of Frost Pillar of Frost Unholy Frenzy Vampiric Blood",
-	["Monk"] = "Legacy of the Emperor Legacy of the White Tiger Renewing Mist Soothing Mist Surging Mist"
+	["Warlock"] = "Fel Armor Soulstone Unending Breath",
+	["Hunter"] = "Trueshot Aura Aspect of the Cheetah Aspect of the Hawk Aspect of the Pack",
+	["Shaman"] = "Grace of Air Bloodlust Heroism Stormlash Totem Lightning Shield Water Shield Water Walking Earth Shield Riptide Exhaustion"
 };
 
 --[[
@@ -127,14 +124,11 @@ ms2racebuffs = {
 	["Undead"] = "Will of the Forsaken",
 	["Tauren"] = "",
 	["Blood Elf"] = "",
-	["Goblin"] = "",
 	["Human"] = "",
 	["Gnome"] = "",
 	["Dwarf"] = "Stoneform",
 	["Night Elf"] = "Shadowmeld",
 	["Draenei"] = "Gift of the Naaru",
-	["Worgen"] = "",
-	["Panderan"] = ""
 };]]
 
 ms2classdebuffs = {
@@ -147,8 +141,6 @@ ms2classdebuffs = {
 	["Warlock"] = "",
 	["Hunter"] = "",
 	["Shaman"] = "Magic Poison Curse",
-	["Death Knight"] = "",
-	["Monk"] = "Magic Poison"
 };
 
 
@@ -242,14 +234,13 @@ function MS2_VariablesLoaded(this)
 	if (ms2vars.manas.ppets == nil)					then ms2vars.manas.ppets = "$mpp"; end
 	if (ms2vars.manas.focus == nil)					then ms2vars.manas.focus = "$mpp"; end
 	if (ms2vars.manas.focustarget == nil)					then ms2vars.manas.focus = "$mpp"; end
-	
+
 	-- FIX
 	ms2vars.scale = tonumber(ms2vars.scale);
 
 	if ms2vars.disabled then MonitorStatus2:Hide(); end
 	if ms2vars.locked then MS2DragButton:Hide(); end
 	if ms2vars.scale then MonitorStatus2:SetScale(ms2vars.scale); end
-	MS2ToggleBG();
 	MS2ToggleMouse();
 	MS2SetFrameWidths();
 	for i=1, 4 do getglobal("MS2partypet"..i):SetScale(0.8); end
@@ -261,7 +252,7 @@ end
 -- onupdate
 function MS2_OnUpdate(self, elapsed)
 	ms2timesinceupdate = ms2timesinceupdate + elapsed;
-	while (ms2timesinceupdate > ms2updateinterval) do	
+	while (ms2timesinceupdate > ms2updateinterval) do
 		if not ms2vars.disabled then MS2Update(); end
 		ms2timesinceupdate = ms2timesinceupdate - ms2updateinterval;
 	end
@@ -269,12 +260,12 @@ end
 
 -- onenter
 function MS2_OnEnter(this, motion)
-	if this.unit then 
-		GameTooltip_SetDefaultAnchor(GameTooltip, this); 
+	if this.unit then
+		GameTooltip_SetDefaultAnchor(GameTooltip, this);
 		GameTooltip:SetUnit(this.unit);
 		GameTooltip:AddLine("HP: |CFF66ff66"..MS2_GetHP(this.unit).."/"..MS2_GetMaxHP(this.unit).."|r");
 		GameTooltip:AddLine("MP: |CFF99CCFF"..MS2_GetMP(this.unit).."/"..MS2_GetMaxMP(this.unit).."|r");
-		GameTooltip:Show(); 
+		GameTooltip:Show();
 	end
 end
 
@@ -400,8 +391,7 @@ function MS2Buffs(frame,aura)
 		end
 		if show then
 			texture:SetTexture(texpath);
-			button:SetBackdropColor(0,1,0);
-			if (app > 1) then appframe:SetText(app); 
+			if (app > 1) then appframe:SetText(app);
 			else appframe:SetText(""); end
 			button:Show();
 			button.num = j;
@@ -425,8 +415,7 @@ function MS2Buffs(frame,aura)
 		end
 		if show then
 			texture:SetTexture(texpath);
-			button:SetBackdropColor(1,0,0);
-			if (app > 1) then appframe:SetText(app); 
+			if (app > 1) then appframe:SetText(app);
 			else appframe:SetText(""); end
 			button:Show();
 			button.num = j;
@@ -441,7 +430,6 @@ function MS2Buffs(frame,aura)
 			button = getglobal(aura..i);
 			texture = getglobal(aura..i.."Overlay");
 			appframe = getglobal(aura..i.."App");
-			button:SetBackdropColor(0,0,1);
 			texture:SetTexture(GetInventoryItemTexture("player",16));
 			appframe:SetText("");
 			button:Show();
@@ -453,7 +441,6 @@ function MS2Buffs(frame,aura)
 			button = getglobal(aura..i);
 			texture = getglobal(aura..i.."Overlay");
 			appframe = getglobal(aura..i.."App");
-			button:SetBackdropColor(0,0,1);
 			texture:SetTexture(GetInventoryItemTexture("player",17));
 			appframe:SetText("");
 			button:Show();
@@ -657,7 +644,7 @@ end
 function MS2_GetBuffInfo(this)
 	local unit = this:GetParent().unit;
 	GameTooltip_SetDefaultAnchor(GameTooltip, this);
-	
+
 	if (this.type == 0) then
 		GameTooltip:SetUnitDebuff(unit, this.num);
 	elseif (this.type == 1) then
@@ -677,7 +664,7 @@ function MS2ParseString(msg)
 		local a,b,c=strfind(msg,"(%S+)");
 		if a then
 			return c,strsub(msg,b+2);
-		else	
+		else
 			return "";
 		end
 	end
@@ -690,7 +677,7 @@ function MS2Slash(msg)
 	if (cmd == "move") then
 		if ms2vars.locked then ms2vars.locked = false; MS2DragButton:Show();
 		else ms2vars.locked = true; MS2DragButton:Hide(); end
-	elseif (cmd == "toggle") then 
+	elseif (cmd == "toggle") then
 		if ms2vars.disabled then ms2vars.disabled = false; MonitorStatus2:Show();
 		else ms2vars.disabled = true; MonitorStatus2:Hide(); end
 	elseif (cmd == "hide") then
@@ -775,33 +762,6 @@ function MS2ToggleMouse()
 	end
 	for i=1, 4 do
 		getglobal("MS2partypet"..i):EnableMouse(toggle);
-	end
-end
-
--- toggle background
-function MS2ToggleBG()
-	local toggle;
-	if ms2vars.hide.background then toggle = 0;
-	else toggle = 1; end
-	MS2player:SetBackdropColor(toggle,toggle,toggle,toggle);
-	MS2player:SetBackdropBorderColor(toggle,toggle,toggle,toggle);
-	MS2target:SetBackdropColor(toggle,toggle,toggle,toggle);
-	MS2target:SetBackdropBorderColor(toggle,toggle,toggle,toggle);
-	MS2targettarget:SetBackdropColor(toggle,toggle,toggle,toggle);
-	MS2targettarget:SetBackdropBorderColor(toggle,toggle,toggle,toggle);
-	MS2focus:SetBackdropColor(toggle,toggle,toggle,toggle);
-	MS2focus:SetBackdropBorderColor(toggle,toggle,toggle,toggle);
-	MS2focustarget:SetBackdropColor(toggle,toggle,toggle,toggle);
-	MS2focustarget:SetBackdropBorderColor(toggle,toggle,toggle,toggle);
-	MS2pet:SetBackdropColor(toggle,toggle,toggle,toggle);
-	MS2pet:SetBackdropBorderColor(toggle,toggle,toggle,toggle);
-	for i=1, 4 do
-		getglobal("MS2party"..i):SetBackdropColor(toggle,toggle,toggle,toggle);
-		getglobal("MS2party"..i):SetBackdropBorderColor(toggle,toggle,toggle,toggle);
-	end
-	for i=1, 4 do
-		getglobal("MS2partypet"..i):SetBackdropColor(toggle,toggle,toggle,toggle);
-		getglobal("MS2partypet"..i):SetBackdropBorderColor(toggle,toggle,toggle,toggle);
 	end
 end
 
